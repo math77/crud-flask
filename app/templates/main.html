@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <title></title>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for receita in receitas %}
+          <tr>
+            <td>{{ receita.nome }}</td>
+            <td>{{ receita.descricao }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

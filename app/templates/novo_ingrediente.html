@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <title>Novo ingrediente</title>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+    <form class="" action="{{ url_for('main.novo_ingrediente') }}" method="POST">
+      {{ form.hidden_tag() }}
+      {{ form.nome.label }}
+      {{ form.nome }}
+      {{ form.submit() }}
+    </form>
+  </body>
+</html>

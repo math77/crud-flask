@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <title>Nova receita</title>
+
+  </head>
+  <body>
+    {% include "navbar.html" %}
+    <form id="nova-receita" action="" method="POST">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.nome.label }}
+        {{ form.nome(class='form-control') }}
+      </div>
+      <div class="form-group">
+        {{ form.descricao.label }}
+        {{ form.descricao(class='form-control') }}
+      </div>
+
+      {{ form.submit(class='btn btn-outline-success') }}
+    </form>
+    <hr>
+    <div id="atualizavel">
+      <form id="ingredientes" action="" method="POST" style="display: none;">
+        <input type="hidden" value="" id="id-receita">
+        <div class="form-group">
+          <label for="porcentagem">Porcentagem</label>
+          <input type="number" name="porcentagem" placeholder="Porcentagem na receita...." id="porcentagem" class="form-control">
+        </div>
+        <div class="form-group">
+          <select class="form-control" name="id_ingrediente" id="id_ingrediente">
+
+          </select>
+        </div>
+        <input type="submit" value="Salvar na receita" class="btn btn-outline-success">
+      </form>
+    </div>
+  </body>
+</html>
