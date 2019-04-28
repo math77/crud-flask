@@ -2,11 +2,14 @@ import datetime
 from extensions import db
 
 
-receita_ingrediente_assoc = db.Table('Receita_Ingrediente',
-                                      db.Column('id_receita', db.Integer, db.ForeignKey('Receita.id'), primary_key=True),
-                                      db.Column('id_ingrediente', db.Integer, db.ForeignKey('Ingrediente.id'), primary_key=True),
-                                      db.Column('porcentagem', db.Float))
+class ReceitaIngrediente(db.Model):
+    __tablename__ = "ReceitaIngrediente"
 
+    id_receita = db.Column(db.Integer, db.ForeignKey('Receita.id'), primary_key=True)
+    id_ingrediente = db.Column(db.Integer, db.ForeignKey('Ingrediente.id'), primary_key=True)
+    porcentagem = db.Column(db.Float)
+    filho = db.relationship("Ingrediente", back_populates="parentes")
+    parente = db.relationship("Receita", back_populates="filhos")
 
 
 class Ingrediente(db.Model):
@@ -15,6 +18,7 @@ class Ingrediente(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(60), nullable=False)
+    parentes = db.relationship("ReceitaIngrediente", back_populates="filho")
 
     def __repr__(self):
         return '<Ingrediente {}>'.format(self.nome)
@@ -34,7 +38,7 @@ class Receita(db.Model):
     nome = db.Column(db.String(100), nullable=False)
     descricao = db.Column(db.Text, nullable=True)
     adicionada_em = db.Column(db.DateTime, default=datetime.datetime.now)
-    ingredientes = db.relationship("Ingrediente", secondary=receita_ingrediente_assoc)
+    filhos = db.relationship("ReceitaIngrediente", back_populates="parente")
 
     def __repr__(self):
         return '<Receita {}>'.format(self.nome)

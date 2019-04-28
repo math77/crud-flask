@@ -1,6 +1,6 @@
 from flask import Blueprint, url_for, redirect, render_template, jsonify, request
 from extensions import db
-from app.models import Ingrediente, Receita
+from app.models import Ingrediente, Receita, ReceitaIngrediente
 from app.main.forms import NovoIngredienteForm, NovaReceitaForm
 
 
@@ -53,9 +53,10 @@ def todas_receitas():
 def ingrediente_receita():
     data = request.get_json()
     receita = Receita.query.filter_by(id=data['id_receita']).first()
-    ingrediente = Ingrediente.query.filter_by(id=data['id_ingrediente']).first()
-    receita.porcentagem = data['porcentagem']
-    receita.ingredientes.append(ingrediente)
+    rec_ing = ReceitaIngrediente(porcentagem=data['porcentagem'])
+    rec_ing.filho = Ingrediente.query.filter_by(id=data['id_ingrediente']).first()
+
+    receita.filhos.append(rec_ing)
 
     db.session.add(receita)
     db.session.commit()

@@ -13,6 +13,7 @@
           <tr>
             <th>Nome</th>
             <th>Descrição</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -20,10 +21,39 @@
           <tr>
             <td>{{ receita.nome }}</td>
             <td>{{ receita.descricao }}</td>
+            <td>
+              <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-calcular">Calcular</button>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
+
+    <div class="modal fade" id="modal-calcular">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Olá</h4>
+                 <button id="fechar" type="button" class="close" data-dismiss="modal"><span>×</span></button>
+               </div>
+              <div class="modal-body">
+                <form id="calc-kg-receita" action="" method="POST">
+                  <div class="form-group">
+                    <label for="issuer">Quanto kg da receita deseja produzir?</label>
+                    <input type="number" class="form-control" name="kg-receita" id="kg-receita" autofocus>
+                  </div>
+                </form>
+               </div>
+              <div class="modal-footer">
+                <p id="resposta"></p>
+                <button type="submit" form="calc-kg-receita" class="btn btn-outline-success">Publicar</button>
+                <button id="cancelar" type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+          </div>
+      </div>
+      <script src="{{ url_for('static', filename='jquery-3.2.1.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
   </body>
 </html>
